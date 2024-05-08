@@ -11,12 +11,19 @@ module.exports = {
     options: {
       "url": "https://jirayu.in.th/graphql"
     }
-  }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-postcss", "gatsby-plugin-google-gtag", "gatsby-plugin-sitemap", {
+  }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-postcss", "gatsby-plugin-sitemap", {
     resolve: 'gatsby-source-filesystem',
     options: {
       "name": "images",
       "path": "./src/images/"
     },
     __key: "images"
+  }, {
+    resolve: 'gatsby-plugin-google-gtag',
+    options: {
+      trackingIds: [
+        '366757691'
+      ],
+    }
   }]
 };
