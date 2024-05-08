@@ -9,7 +9,11 @@ module.exports = {
   plugins: [{
     resolve: 'gatsby-source-wordpress',
     options: {
-      "url": "https://jirayu.in.th/graphql"
+      url: "https://jirayu.in.th/graphql",
+      verbose: true,
+      schema: {
+        timeout: 180000,
+      },
     }
   }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-postcss", "gatsby-plugin-sitemap", {
     resolve: 'gatsby-source-filesystem',
