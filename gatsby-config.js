@@ -12,7 +12,7 @@ module.exports = {
       url: "https://jirayu.in.th/graphql",
       verbose: true,
       schema: {
-        timeout: 180000,
+        timeout: 300000,
       },
     }
   }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-postcss", "gatsby-plugin-sitemap", {
