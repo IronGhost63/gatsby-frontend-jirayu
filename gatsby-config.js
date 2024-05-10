@@ -4,7 +4,9 @@
 module.exports = {
   siteMetadata: {
     title: `JIRAYU.IN.TH`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://frontend.jirayu.in.th`,
+    siteTagline: 'โปรแกรมเมอร์, ช่างภาพ, และคนเลี้ยงแมว',
+    postsPerPage: 10,
   },
   plugins: [{
     resolve: 'gatsby-source-wordpress',
@@ -14,10 +16,8 @@ module.exports = {
       schema: {
         timeout: 120000,
       },
-      type: {
-        MediaItem: {
-          exclude: true,
-        },
+      html: {
+        useGatsbyImage: true,
       },
     }
   }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-postcss", "gatsby-plugin-sitemap", {
