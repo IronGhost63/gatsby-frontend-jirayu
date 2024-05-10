@@ -1,8 +1,11 @@
 const path = require(`path`);
+const { siteMetadata } = require('./gatsby-config.js');
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
-  const blogPostTemplate = path.resolve('src/pages/templates/blogPost.js');
+  const blogPostTemplate = path.resolve('src/templates/blogPost.js');
+  const indexTemplate = path.resolve('src/templates/index.js');
+  const pagedTemplate = path.resolve('src/templates/blogPaged.js');
 
   return graphql(`
     query getPosts {
@@ -21,9 +24,8 @@ exports.createPages = ({ graphql, actions }) => {
       throw result.errors
     }
 
-    // Create blog post pages.
+    // Page for each blog entry
     result.data.allWpPost.nodes.forEach(item => {
-
       createPage({
         // Path for this page — required
         path: `${item.slug}`,
@@ -34,6 +36,30 @@ exports.createPages = ({ graphql, actions }) => {
           content: item.content,
         },
       })
-    })
-  })
+    });
+
+    // Frontpage
+    createPage({
+      path: '/',
+      component: indexTemplate,
+      context: {
+        postsPerPage: siteMetadata.postsPerPage,
+      }
+    });
+
+    // Blog pagination
+    const totalPages = Math.ceil(result.data.allWpPost.nodes.length / siteMetadata.postsPerPage);
+    Array.from({ length: totalPages }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+        component: pagedTemplate,
+        context: {
+          postsPerPage: siteMetadata.postsPerPage,
+          skip: i * siteMetadata.postsPerPage,
+          totalPages,
+          currentPage: i + 1,
+        },
+      });
+    });
+  });
 }
