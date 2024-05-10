@@ -5,6 +5,7 @@ module.exports = {
   siteMetadata: {
     title: `JIRAYU.IN.TH`,
     siteUrl: `https://frontend.jirayu.in.th`,
+    siteTagline: 'โปรแกรมเมอร์, ช่างภาพ, และคนเลี้ยงแมว',
     postsPerPage: 10,
   },
   plugins: [{

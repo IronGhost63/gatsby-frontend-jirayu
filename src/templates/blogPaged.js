@@ -1,21 +1,24 @@
 import * as React from "react";
 import PostList from "../components/postList";
 import { graphql } from "gatsby";
+import Layout from "./layout";
 
-const IndexPage = ({data}) => {
+const BlogPaged = ({data}) => {
   return (
-    <main className="container mx-auto p-1 md:p-4">
-      <div className="md:grid md:grid-cols-1">
-        <div>
-          <PostList items={data.allWpPost.nodes}/>
+    <Layout>
+      <main className="container mx-auto p-1 md:p-4">
+        <div className="md:grid md:grid-cols-1">
+          <div>
+            <PostList items={data.allWpPost.nodes}/>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </Layout>
   )
 }
 
-export default IndexPage
-export const Head = ({pageContext}) => <title>Page {pageContext.currentPage}</title>
+export default BlogPaged;
+export const Head = ({pageContext}) => <title>Page {pageContext.currentPage}</title>;
 export const query = graphql`
   query ($postPerPage: Int, $skip: Int){
     allWpPost(limit: $postPerPage, skip: $skip) {

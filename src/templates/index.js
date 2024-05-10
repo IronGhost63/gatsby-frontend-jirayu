@@ -1,20 +1,23 @@
 import * as React from "react";
 import PostList from "../components/postList";
 import { graphql } from "gatsby";
+import Layout from "./layout";
 
 const IndexPage = ({data, pageContext}) => {
   return (
-    <main className="container mx-auto p-1 md:p-4">
-      <div className="md:grid md:grid-cols-2">
-        <div>
-          <p>Hello World</p>
-          <p>PostsPerPage: {pageContext.postsPerPage}</p>
+    <Layout>
+      <main className="container mx-auto p-1 md:p-4">
+        <div className="md:grid md:grid-cols-2">
+          <div>
+            <p>Hello World</p>
+            <p>PostsPerPage: {pageContext.postsPerPage}</p>
+          </div>
+          <div>
+            <PostList items={data.allWpPost.nodes}/>
+          </div>
         </div>
-        <div>
-          <PostList items={data.allWpPost.nodes}/>
-        </div>
-      </div>
-    </main>
+      </main>
+    </Layout>
   )
 }
 
