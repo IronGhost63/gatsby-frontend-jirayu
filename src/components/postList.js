@@ -1,11 +1,7 @@
 import * as React from "react";
-import { useEffect } from "react";
 import { Link } from "gatsby";
 
 const PostList = ({items, className}) => {
-  useEffect(() => {
-    console.log(items);
-  }, []);
   return(
     <div className={className}>
       <ul>
