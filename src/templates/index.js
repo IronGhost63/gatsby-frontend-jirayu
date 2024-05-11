@@ -13,7 +13,7 @@ const IndexPage = ({pageContext}) => {
             <MyInfo/>
           </div>
           <div>
-            <h2 className="text-3xl mb-4">Blog</h2>
+            <h2 className="text-3xl mb-4 p-2">Blog</h2>
             <PostList items={pageContext.items} className="mb-4"/>
             <Pagination currentPage={1} totalPages={pageContext.totalPages} basePath="/blog"/>
           </div>
