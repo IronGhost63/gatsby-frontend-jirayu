@@ -2,7 +2,7 @@ const path = require(`path`);
 const { siteMetadata } = require('./gatsby-config.js');
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions;
+  const { createPage, createRedirect } = actions;
   const blogPostTemplate = path.resolve('src/templates/blogPost.js');
   const indexTemplate = path.resolve('src/templates/index.js');
   const pagedTemplate = path.resolve('src/templates/blogPaged.js');
@@ -16,6 +16,11 @@ exports.createPages = ({ graphql, actions }) => {
           title
           date
           content
+          featuredImage {
+            node {
+              uri
+            }
+          }
         }
       }
     }
@@ -38,26 +43,37 @@ exports.createPages = ({ graphql, actions }) => {
       })
     });
 
+    const totalPages = Math.ceil(result.data.allWpPost.nodes.length / siteMetadata.postsPerPage);
+
     // Frontpage
     createPage({
       path: '/',
       component: indexTemplate,
       context: {
         postsPerPage: siteMetadata.postsPerPage,
+        totalPages,
+        items: result.data.allWpPost.nodes.slice(0, siteMetadata.postsPerPage),
       }
     });
 
     // Blog pagination
-    const totalPages = Math.ceil(result.data.allWpPost.nodes.length / siteMetadata.postsPerPage);
     Array.from({ length: totalPages }).forEach((_, i) => {
+      if ( i === 0 ) {
+        return;
+      }
+
+      i++;
+
+      const itemStart = ((i-1) * siteMetadata.postsPerPage);
+      const itemEnd = siteMetadata.postsPerPage * i;
+
       createPage({
-        path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+        path: `/blog/${i}`,
         component: pagedTemplate,
         context: {
-          postsPerPage: siteMetadata.postsPerPage,
-          skip: i * siteMetadata.postsPerPage,
           totalPages,
-          currentPage: i + 1,
+          currentPage: i,
+          items: result.data.allWpPost.nodes.slice(itemStart, itemEnd),
         },
       });
     });
