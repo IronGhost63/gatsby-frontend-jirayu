@@ -36,6 +36,14 @@ module.exports = {
           '366757691'
         ],
       }
+    }, {
+      resolve: 'gatsby-plugin-google-fonts',
+      options: {
+        fonts: [
+          'Sarabun',
+        ],
+        display: 'swap'
+      }
     }
   ]
 };
