@@ -1,19 +1,21 @@
 import * as React from "react";
 import PostList from "../components/postList";
-import { graphql } from "gatsby";
 import Layout from "./layout";
+import MyInfo from "../components/myInfo";
+import Pagination from "../components/Pagination";
 
-const IndexPage = ({data, pageContext}) => {
+const IndexPage = ({pageContext}) => {
   return (
     <Layout>
-      <main className="container mx-auto p-1 md:p-4">
+      <main className="container max-w-screen-lg mx-auto p-1 md:p-4">
         <div className="md:grid md:grid-cols-2">
           <div>
-            <p>Hello World</p>
-            <p>PostsPerPage: {pageContext.postsPerPage}</p>
+            <MyInfo/>
           </div>
           <div>
-            <PostList items={data.allWpPost.nodes}/>
+            <h2 className="text-3xl mb-4">Blog</h2>
+            <PostList items={pageContext.items} className="mb-4"/>
+            <Pagination currentPage={1} totalPages={pageContext.totalPages} basePath="/blog"/>
           </div>
         </div>
       </main>
@@ -23,19 +25,3 @@ const IndexPage = ({data, pageContext}) => {
 
 export default IndexPage
 export const Head = () => <title>Home Page</title>
-export const query = graphql`
-  query ($postsPerPage: Int){
-    allWpPost(limit: $postsPerPage) {
-      nodes {
-        date
-        slug
-        title
-        featuredImage {
-          node {
-            uri
-          }
-        }
-      }
-    }
-  }
-`;

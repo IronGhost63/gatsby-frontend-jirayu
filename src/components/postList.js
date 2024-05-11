@@ -1,12 +1,16 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { Link } from "gatsby";
 
-const PostList = ({items}) => {
+const PostList = ({items, className}) => {
+  useEffect(() => {
+    console.log(items);
+  }, []);
   return(
-    <div>
+    <div className={className}>
       <ul>
         {items.map( (item) =>
-          <li>
+          <li key={item.id}>
             <Link to={`/${item.slug}`} className="block mb-1 hover:bg-neutral-100 p-2">
               <h3 className="mb-1 text-lg">{item.title}</h3>
               <p className="text-gray-400 text-xs">{item.date}</p>
