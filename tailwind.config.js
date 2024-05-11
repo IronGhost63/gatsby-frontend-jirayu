@@ -1,4 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+
+const styleMap = require('./src/utilities/contentStyleMap.js');
+const requiredClasses = ((Object.entries(styleMap.styleMap).map( item => item[1] )).join(' ')).split(' ');
+
 module.exports = {
   content: [
     `./src/templates/**/*.{js,jsx,ts,tsx}`,
@@ -9,4 +13,5 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  safelist: requiredClasses,
 }
