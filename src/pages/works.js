@@ -4,7 +4,9 @@ import Layout from "../templates/layout";
 const PageWorks = () => {
   return(
     <Layout>
-      Hello World
+      <main className="container max-w-screen-lg mx-auto p-1 md:p-4">
+        Hello World
+      </main>
     </Layout>
   );
 };
